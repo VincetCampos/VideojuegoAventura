@@ -1,4 +1,4 @@
-package edu.com.umg.Videojuego;
+package Clases;
 
 public abstract class Entidad {
 

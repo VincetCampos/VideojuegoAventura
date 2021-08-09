@@ -1,4 +1,6 @@
-package edu.com.umg.Videojuego;
+package Clases;
+
+import Clases.Guerrero;
 
 public class Enemigo extends Guerrero {
 }

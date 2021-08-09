@@ -1,6 +1,8 @@
-package edu.com.umg.Videojuego;
+package Clases;
 
-public class ObjetoInmueble extends Entidad{
+import Clases.Entidad;
+
+public class ObjetoInmueble extends Entidad {
 
     private String infoinmueble;
 
@@ -11,4 +13,5 @@ public class ObjetoInmueble extends Entidad{
     public void setInfoinmueble(String infoinmueble) {
         this.infoinmueble = infoinmueble;
     }
+
 }

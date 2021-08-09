@@ -1,6 +1,8 @@
-package edu.com.umg.Videojuego;
+package Clases;
 
-public class Guerrero extends Entidad{
+import Clases.Entidad;
+
+public class Guerrero extends Entidad {
 
     private int nivelEnergia;
 
