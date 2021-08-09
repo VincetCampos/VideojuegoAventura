@@ -23,7 +23,7 @@ public class Heroe extends Guerrero {
                 super.setNivelEnergia(super.getNivelEnergia() + arma.getNivelEnergia());
                 System.out.println("Arma equipada");
                 System.out.println("Nuevo nivel de energia: " + super.getNivelEnergia());
-                super.setCapacidadOfensiva(super.getCapacidadOfensiva()*arma.getPotenciarAtaque());
+                super.setCapacidadOfensiva(super.getCapacidadOfensiva() + arma.getPotenciarAtaque());
                 System.out.println("Nueva capacidad ofensiva " + super.getCapacidadOfensiva());
             }else {
                 super.setNivelEnergia(super.getNivelEnergia() + objetoMueble.getNivelEnergia());

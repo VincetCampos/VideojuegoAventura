@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Funcion {
+public class Universo {
 
     Heroe heroe = new Heroe();
 
@@ -39,7 +39,7 @@ public class Funcion {
     boolean derrota;
 
 
-    public Funcion(){
+    public Universo(){
         heroe.setEjeX(0);
         heroe.setEjeY(0);
         heroe.setNombre("Heroe");
@@ -126,14 +126,14 @@ public class Funcion {
         comida.setEjeX(-4);
         comida.setEjeY(-1);
         comida.setNombre("Un sandwitch");
-        comida.setDescripcionObjeto("Un sandwitch que regenera 25 puntos de salud");
+        comida.setDescripcionObjeto("Un sandwitch que aumenta 25 puntos de salud");
         objetoMuebles.add(comida);
 
         ObjetoMueble pocion = new ObjetoMueble();
         pocion.setEjeY(1);
         pocion.setEjeX(-5);
         pocion.setNombre("Pocion regenerativa");
-        pocion.setDescripcionObjeto("Pocion capaz de regenerar toda la vida");
+        pocion.setDescripcionObjeto("Pocion capaz de aumentar la vida");
         objetoMuebles.add(pocion);
 
         Arma espada = new Arma();
