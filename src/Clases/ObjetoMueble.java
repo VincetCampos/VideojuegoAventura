@@ -4,16 +4,21 @@ import Clases.Entidad;
 
 public class ObjetoMueble extends Entidad {
 
-    private boolean itemrecogido;
 
     private String descripcionObjeto;
 
-    public boolean isItemrecogido() {
-        return itemrecogido;
+    private int nivelEnergia;
+
+    public ObjetoMueble(){
+        nivelEnergia = 25;
     }
 
-    public void setItemrecogido(boolean itemrecogido) {
-        this.itemrecogido = itemrecogido;
+    public int getNivelEnergia() {
+        return nivelEnergia;
+    }
+
+    public void setNivelEnergia(int nivelEnergia) {
+        this.nivelEnergia = nivelEnergia;
     }
 
     public String getDescripcionObjeto() {

@@ -64,10 +64,12 @@ public class Funcion {
     public void correrJuego(){
         crearEnemigos();
         crearObjetosInmuebles();
+        crearobjetosMuebles();
         while(!gameOver){
             ImprimirStats();
             avanzar();
             infoObjetoInmueble();
+            infoObjetoMueble();
             batalla();
             regenerarVida();
             terminarJuego();
@@ -125,7 +127,6 @@ public class Funcion {
         comida.setEjeY(-1);
         comida.setNombre("Un sandwitch");
         comida.setDescripcionObjeto("Un sandwitch que regenera 25 puntos de salud");
-        comida.setItemrecogido(false);
         objetoMuebles.add(comida);
 
         ObjetoMueble pocion = new ObjetoMueble();
@@ -133,7 +134,6 @@ public class Funcion {
         pocion.setEjeX(-5);
         pocion.setNombre("Pocion regenerativa");
         pocion.setDescripcionObjeto("Pocion capaz de regenerar toda la vida");
-        pocion.setItemrecogido(false);
         objetoMuebles.add(pocion);
 
         Arma espada = new Arma();
@@ -143,8 +143,16 @@ public class Funcion {
         espada.setDescripcionObjeto("Espada que otorga un incremento de 10 puntos de ataque");
         espada.setNivelEnergia(50);
         espada.setPotenciarAtaque(10);
-        espada.setItemrecogido(false);
-        armas.add(espada);
+        objetoMuebles.add(espada);
+
+        Arma flechas = new Arma();
+        flechas.setEjeY(-2);
+        flechas.setEjeX(-3);
+        flechas.setNombre("Flechas");
+        flechas.setDescripcionObjeto("Flecha robustas con un Arco");
+        flechas.setNivelEnergia(0);
+        flechas.setPotenciarAtaque(15);
+        objetoMuebles.add(flechas);
     }
 
     public void avanzar(){
@@ -186,6 +194,21 @@ public class Funcion {
                 }
             }else if (moverse.equals("rendirse")) {
                 heroe.setNoVidas(0);
+            }
+            else if (moverse.equals("mochila")) {
+                if (heroe.vermochila() > 0){
+                    System.out.println("Elije que item quieres usar");
+                    String eleccion = entrada.nextLine();
+                    int seleccionInt;
+                    try {
+                        seleccionInt = Integer.parseInt(eleccion);
+                        heroe.usarMochila(seleccionInt);
+                    }
+                    catch (NumberFormatException e)
+                    {
+                        System.out.println("Seleccion Invalida");
+                    }
+                }
             }else {
                 System.out.println("Ese no es un comando valido");
             }
@@ -261,7 +284,6 @@ public class Funcion {
                     System.out.println("Has entrado en una batalla contra un " + enemigo.getNombre());
                     System.out.println("Que vas a hacer");
                     System.out.println("presione 1 para Atacar");
-                    System.out.println("presione 2 para usar un objeto");
                     String decisionBatalla = entrada.nextLine();
                     if (decisionBatalla.equals("1")){
                         System.out.println("Has lanzado un golpe preciso al " + enemigo.getNombre() + " le provocas "
@@ -269,8 +291,6 @@ public class Funcion {
 
                         enemigo.setNivelEnergia(enemigo.getNivelEnergia() - heroe.getCapacidadOfensiva());
 
-                    }else if (decisionBatalla.equals("2")){
-                        System.out.println("en proceso");
                     }else {
                         System.out.println("Esa no es una opcion");
                     }
@@ -295,6 +315,26 @@ public class Funcion {
                     break;
                 }
             }while (!victoria || !derrota);
+        }
+    }
+
+    public void infoObjetoMueble(){
+        for (ObjetoMueble objetoMueble : objetoMuebles) {
+            if (heroe.getEjeX() == objetoMueble.getEjeX() && heroe.getEjeY() == objetoMueble.getEjeY()) {
+                System.out.println("El heroe se encontro con un item " + objetoMueble.getNombre()
+                        +  " " + objetoMueble.getDescripcionObjeto());
+                System.out.println("Desea recogerlo? (S/N)");
+                String respuesta = entrada.nextLine();
+                if ("S".equals(respuesta) || "s".equals(respuesta)){
+                    if (heroe.recogerItem(objetoMueble)){
+                        objetoMuebles.remove(objetoMueble);
+                        System.out.println("Item recogido");
+                    }else{
+                        System.out.println("No se puede recoger la mochila esta llena");
+                    }
+                }
+                break;
+            }
         }
     }
 }
