@@ -1,10 +1,11 @@
 package edu.com.umg.Videojuego;
 
 import Clases.*;
+import MethodFactory.NPC;
+import MethodFactory.NPCFactory;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Universo {
 
@@ -26,17 +27,25 @@ public class Universo {
 
     private List<Arma> armas;
 
+    //usar mapas para obtener y sobreescribir datos
+    private Map<String , NPC> mapaNPCs;
+
     int y = 0;
 
     int x = 0;
 
     int vidas = 3;
 
+    String nombreNPC;
+
     boolean gameOver = false;
 
     boolean victoria;
 
     boolean derrota;
+
+    //se crea la fabrica de los npc
+    private NPCFactory npcFactory = new NPCFactory();
 
 
     public Universo(){
@@ -59,6 +68,8 @@ public class Universo {
         objetoMuebles = new ArrayList<>();
 
         armas = new ArrayList<>();
+
+        mapaNPCs = new HashMap<>();
     }
 
     public void correrJuego(){
@@ -66,13 +77,57 @@ public class Universo {
         crearObjetosInmuebles();
         crearobjetosMuebles();
         while(!gameOver){
+            crearNPC();
             ImprimirStats();
             avanzar();
             infoObjetoInmueble();
             infoObjetoMueble();
             batalla();
+            encontrarNPC();
             regenerarVida();
             terminarJuego();
+        }
+    }
+    public void crearNPC(){
+
+        //una forma de obtener numeros aleatorios
+        int randomNum = ThreadLocalRandom.current().nextInt(0, 10);
+
+        //usar switch cuando se ocupan numeros
+        switch (randomNum){
+            case 0:
+                nombreNPC = "SpiderMan";
+                break;
+            case 1:
+                nombreNPC = "Venom";
+                break;
+            case 2:
+                nombreNPC = "Deadpool";
+                break;
+            case 3:
+                nombreNPC = "SuperMan";
+                break;
+            case 4:
+                nombreNPC = "Batman";
+            default:
+                return;
+        }
+
+        //guardar los datos en arreglos o mapas para que no desaparescan despues de salir del scope
+        //forma para ingresar los datos en un mapa
+        mapaNPCs.put(nombreNPC , npcFactory.fabricarNPC(nombreNPC));
+    }
+    public void encontrarNPC(){
+
+        //System.out.println("Coordenadas heore: "+ heroe.getEjeY() + " " + heroe.getEjeX());
+
+        //un for que itera el mapa, obtiene los datos y los compara
+
+        for (var entry : mapaNPCs.entrySet()) {
+            NPC npc = entry.getValue();
+            if (heroe.getEjeY() == npc.getEjeY() && heroe.getEjeX() == npc.getEjeX()){
+                System.out.println("Hola me encontraste, mi nombre es " + npc.getNombreNPC());
+            }
         }
     }
 

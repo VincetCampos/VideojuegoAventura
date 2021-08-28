@@ -1,7 +1,5 @@
 package Clases;
 
-import Clases.Entidad;
-
 public class ObjetoMueble extends Entidad {
 
 
